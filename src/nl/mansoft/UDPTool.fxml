@@ -24,6 +24,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
@@ -37,12 +38,13 @@
                 <Label text="Message" GridPane.rowIndex="4" />
                 <TextField fx:id="message" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <Button fx:id="buttonSend" disable="true" mnemonicParsing="false" onAction="#handleSend" text="Send" GridPane.rowIndex="5" />
-                <Label text="Response" GridPane.rowIndex="7" />
+                <Label text="Response" GridPane.rowIndex="8" />
                 <Label text="State" GridPane.rowIndex="6" />
                 <Label fx:id="state" text="socket unbound" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <Label fx:id="response" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Button fx:id="copy" mnemonicParsing="false" onAction="#handleCopy" text="Copy IP address/Port" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+                <Label fx:id="response" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <Button fx:id="copy" mnemonicParsing="false" onAction="#handleCopy" text="Copy IP address/Port" GridPane.columnSpan="2" GridPane.rowIndex="9" />
             <ToggleButton fx:id="buttonBind" mnemonicParsing="false" onAction="#handleBind" text="Bind" GridPane.rowIndex="1" />
+            <Button fx:id="copyLocal" disable="true" mnemonicParsing="false" onAction="#handleCopyLocal" text="Copy IP address" GridPane.columnSpan="2" GridPane.rowIndex="7" />
             </children>
         </GridPane>
     </children>

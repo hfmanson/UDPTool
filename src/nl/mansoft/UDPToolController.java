@@ -5,10 +5,12 @@
  */
 package nl.mansoft;
 
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.BindException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
+//import java.net.DatagramSocket;
+import nl.openfortress.socket6bed4.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -19,6 +21,8 @@ import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -63,6 +67,9 @@ public class UDPToolController implements Initializable {
     @FXML
     Button copy;
 
+    @FXML
+    Button copyLocal;
+
     void closeSocket() {
         if (socket != null && !socket.isClosed()) {
             socket.close();
@@ -80,14 +87,18 @@ public class UDPToolController implements Initializable {
 
     @FXML
     private void handleBind() {
-        int port = Integer.parseInt(localPort.getText());
+        String portString = localPort.getText();
+        int port = portString.equals("") ? 0 : Integer.parseInt(portString);
         try {
             if (buttonBind.isSelected()) {
                 socket = new DatagramSocket(port);
+                state.setText("socket bound: " + socket.getLocalSocketAddress());
+                System.err.println(socket.getLocalSocketAddress());
                 udpClientThead = new UdpClientThread(this);
                 udpClientThead.start();
                 buttonBind.setText("Close");
                 buttonSend.setDisable(false);
+                copyLocal.setDisable(false);
             } else {
                 closeSocket();
             }
@@ -127,6 +138,22 @@ public class UDPToolController implements Initializable {
             remotePort.setText(Integer.toString(lastSocketAddress.getPort()));
         }
     }
+
+    private static Clipboard getSystemClipboard()
+    {
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+        Clipboard systemClipboard = defaultToolkit.getSystemClipboard();
+        return systemClipboard;
+    }
+
+    @FXML
+    private void handleCopyLocal() {
+        String localAddress = socket.getLocalAddress().getHostName();
+        Clipboard clipboard = getSystemClipboard();
+
+        clipboard.setContents(new StringSelection(localAddress), null);
+    }
+    
     /**
      * Initializes the controller class.
      */

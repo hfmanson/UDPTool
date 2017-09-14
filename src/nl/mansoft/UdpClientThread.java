@@ -54,7 +54,6 @@ public class UdpClientThread extends Thread {
 
             // send request
             byte[] buf = new byte[256];
-            sendState("socket bound to port " + udpToolController.socket.getLocalPort());
             for (;;) {
                 // get response
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
